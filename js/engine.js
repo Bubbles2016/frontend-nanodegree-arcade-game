@@ -56,6 +56,7 @@ var Engine = (function(global) {
          * function again as soon as the browser is able to draw another frame.
          */
         win.requestAnimationFrame(main);
+        // 
     }
 
     /* This function does some initial setup that should only occur once,
@@ -80,6 +81,7 @@ var Engine = (function(global) {
     function update(dt) {
         updateEntities(dt);
         // checkCollisions();
+        
     }
 
     /* This is called by the update function and loops through all of the
@@ -94,6 +96,9 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
+        // allGems.forEach(function(gem) {
+        //     gem.update();
+        // });
     }
 
     /* This function initially draws the "game level", it will then call
@@ -161,8 +166,17 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
+        // let's create our objects. 
+        enemyBug1 = new Enemy(0, 150, 100, "E1"); 
+        enemyBug2 = new Enemy(0, 250, 150, "E2");
+        enemyBug3 = new Enemy(0, 305, 75, "E3");
+        allEnemies = [enemyBug1, enemyBug2, enemyBug3];
+        player = new Player(); // global var
+        pause = false;
+
         // noop
     }
+
 
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when
@@ -173,7 +187,8 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/char-cat-girl.png',
     ]);
     Resources.onReady(init);
 
@@ -182,4 +197,5 @@ var Engine = (function(global) {
      * from within their app.js files.
      */
     global.ctx = ctx;
+    global.reset = reset;
 })(this);

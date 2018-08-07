@@ -1,0 +1,29 @@
+
+TODO
+4. read sidescroller code
+6. write level editor 
+8. create a text representation for levels. should be able to represent the safe and dangerous areas and enemies. Want lava. ASCII. 
+    draw level using ASCII editor. 
+9. lava
+10. collision against walls, obstacles, dangerous areas. rendering of the background should come from engine
+
+
+IN PROGRESS 
+5. find 5 sidescroller games. which ones do i like the most and why.
+    - 1942 for NES download NES emulator free openEMU, Fzero SNES
+11. Gems - display amount of Gems
+
+
+DONE 
+0. non discrete movement -- keypress should keep moving character
+1. comment code from today
+2. map letter P to pause 
+3. play and download Crossy Road -- why is it fun?? 
+    unlocking new characters, gifts, items, timing, variation of obstacles in gameworld
+7. read about 2d matrices
+
+12. Sound 
+        12.1 sound for when player is hit -- https://freesound.org/people/LittleRobotSoundFactory/sounds/270326/
+        12.2 sounds when player wins -- https://freesound.org/people/xtrgamr/sounds/277441/
+        12.3 background music -- https://freesound.org/people/Sirkoto51/sounds/370175/
+13. Victory condition detection. 
