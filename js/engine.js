@@ -166,7 +166,7 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // let's create our objects. 
+        // Create objects. 
         enemyBug1 = new Enemy(0, 150, 100, "E1"); 
         enemyBug2 = new Enemy(0, 250, 150, "E2");
         enemyBug3 = new Enemy(0, 305, 75, "E3");

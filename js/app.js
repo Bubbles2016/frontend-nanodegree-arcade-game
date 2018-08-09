@@ -13,7 +13,7 @@ var Enemy = function(x, y, speed, name) {
     this.height = 77;
     this.speed = speed;
     this.name = name;
-    return this 
+    return this
 };
 
 
@@ -23,11 +23,9 @@ Enemy.prototype.update = function(dt) {
     if (pause) {
         return
     }
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
+    //TODO: multiply the speed by dt
     this.x = this.x + this.speed * dt;
-     if(this.x > 505) {
+    if(this.x > 505) {
         this.x = 0;
     }
 };
@@ -54,7 +52,7 @@ Player.prototype.update = function(dt) {
     if (pause) {
         this.isTakingDamage = false;
         return
-    } 
+    }
     //You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
@@ -64,12 +62,12 @@ Player.prototype.update = function(dt) {
         if (this.damaged) {
             return;
         }
-            
     }
 };
 
 Player.prototype.handleCollision = function(enemy) {
     
+    // This function detects if any of the player coordinates falls within the enemy's occupied space (sprite)
     function partialCollision(point, rect){
         var coordx = point.x;
         var coordy = point.y;
@@ -81,18 +79,20 @@ Player.prototype.handleCollision = function(enemy) {
         return coordx1 <= coordx && coordx <= coordx2 && coordy1 <= coordy && coordy <= coordy2;
       
     }
+
+    //This function detects if the player and the enemy collide.
     function totalCollision(rect1,rect2){
         // top left point
-        var pointc1 = {"x": rect1.x, "y": rect1.y};
+        var pointc1 = {'x': rect1.x, 'y': rect1.y};
         
-        // top right point      
-        var pointc2 = {"x": rect1.x + rect1.width, "y": rect1.y};      
+        // top right point
+        var pointc2 = {'x': rect1.x + rect1.width, 'y': rect1.y};
         
         // bottom left point
-        var pointc3 = {"x": rect1.x , "y": rect1.y + rect1.height}; 
+        var pointc3 = {'x': rect1.x , 'y': rect1.y + rect1.height};
 
         // bottom right point
-        var pointc4 = {"x": rect1.x + rect1.width, "y": rect1.y + rect1.height}; 
+        var pointc4 = {'x': rect1.x + rect1.width, 'y': rect1.y + rect1.height};
       
         return (partialCollision(pointc1, rect2) ||
         partialCollision(pointc2, rect2) ||
@@ -100,12 +100,11 @@ Player.prototype.handleCollision = function(enemy) {
         partialCollision(pointc4, rect2));
     }
     
-    // if player and enemy collide, the player get damaged.   
-    let isGettingDamage = totalCollision(player, enemy) || totalCollision(enemy, player); 
+    // if player and enemy collide, the player get damaged.
+    let isGettingDamage = totalCollision(player, enemy) || totalCollision(enemy, player);
     if (isGettingDamage){
           this.sprite = 'images/char-cat-girl.png';
           this.damaged = true;
-          //this.health = this.health -2;
           this.health = -1;
           if (this.health < 0) {
               reset();
@@ -121,19 +120,16 @@ Player.prototype.handleCollision = function(enemy) {
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     ctx.font = '30px monospace';
-    ctx.fontStyle = "rgb(24, 24, 104)";
+    ctx.fontStyle = 'rgb(24, 24, 104)';
     ctx.linewidth = 2;
-    ctx.fillStyle = "rgb(0, 0 ,0)";
+    ctx.fillStyle = 'rgb(0, 0 ,0)';
     
-    //let maximumHealth = 100; //player starts with 100 health points
-    //ctx.fillText("Health: " + this.health, 20, 80); // text written to screen
-
-     //when the player wins the game
-     if (this.y === 50) {
+    //when the player wins the game
+    if (this.y === 50) {
         ctx.font = '50px monospace';
-        ctx.fontStyle = "rgb(24, 24, 104)";
-        ctx.fillStyle = "rgb(0, 0 ,0)";
-        ctx.fillText("You won", 150, 250); // text written to screen. fillText function takes a string and x and y arguments 
+        ctx.fontStyle = 'rgb(24, 24, 104)';
+        ctx.fillStyle = 'rgb(0, 0 ,0)';
+        ctx.fillText('You won', 150, 250); // text written to screen. fillText function takes a string and x and y arguments
         pause = true;
         setTimeout( function(){
             pause = true;
@@ -142,38 +138,39 @@ Player.prototype.render = function() {
 
 };
 
+//This function will handle the player's keyboard input. The player will use the arrow keys along with the spacebar to play the game.
 Player.prototype.handleInput = function(evt){
  if (pause) {
     switch(evt){
-        case "pause":
-        pause = !pause;  //toggles between pause and resume               
+        case 'pause':
+        pause = !pause;  //toggles between pause and resume
         break;
     default:
         return;
     }
  } else {
     switch(evt) {
-        case "up":
+        case 'up':
             this.y -= 50;
             break;
-        case "down":
+        case 'down':
              this.y += 50;
             break;
-        case "left":
+        case 'left':
             this.x -= 50;
-            break;  
-        case "right":
+            break;
+        case 'right':
             this.x += 50;
             break;
-        case "pause":
+        case 'pause':
             pause = !pause;  
             break;
         default:
             return;
     }
  }
-    //The player can't move outside the canvas
-    if (this.x > 500 || this.x < 0) {
+    //The player is not allowed to move outside the canvas
+    if (this.x > 480 || this.x < 0) {
         this.x = 200;
     }
 
@@ -183,16 +180,14 @@ Player.prototype.handleInput = function(evt){
 };
 
 // Now instantiate your objects. 
-var enemyBug1 = new Enemy(0, 150, 100, "Enemy1"); 
-var enemyBug2 = new Enemy(0, 250, 150, "Enemy2");
-var enemyBug3 = new Enemy(0, 305, 75, "Enemy3");
+var enemyBug1 = new Enemy(0, 150, 100, 'Enemy1');
+var enemyBug2 = new Enemy(0, 250, 150, 'Enemy2');
+var enemyBug3 = new Enemy(0, 305, 75, 'Enemy3');
 
  
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [enemyBug1, enemyBug2, enemyBug3];
 var player = new Player();
-
-// pause set to false on game start in reset in function
 let pause; 
 
 
@@ -208,6 +203,3 @@ document.addEventListener('keydown', function(e) {
     };
     player.handleInput(allowedKeys[e.keyCode]);
 });
-
-
-
